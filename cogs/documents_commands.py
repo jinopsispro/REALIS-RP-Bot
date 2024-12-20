@@ -386,7 +386,7 @@ class documents_commands_cog(commands.Cog):
         description="crée une carte d'identité"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD','Notaire')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")),int(os.getenv("NOTAIRE_ID")))
     async def carte_identite_creer(self,interaction:discord.Interaction,prenom:str,nom:str,genre:str,jour:int,mois:int,annee:int,*,lieu_de_naissance:str,nationalite:str,joueur:discord.User):
         try:
             database.cree_identite(str(joueur.id),prenom,nom,genre,jour,mois,annee,lieu_de_naissance,nationalite)
@@ -401,7 +401,7 @@ class documents_commands_cog(commands.Cog):
         description="crée la carte grise d'un joueur"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def carte_grise_creer(self,interaction:discord.Interaction,immatriculation:str,modele:str,joueur:discord.User):
         await interaction.response.defer()
         try:
@@ -418,7 +418,7 @@ class documents_commands_cog(commands.Cog):
         description="supprime une carte grise d'un joueur"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def carte_grise_supprimer(self,interaction:discord.Interaction,immatriculation:str):
         await interaction.response.defer()
         try:
@@ -440,7 +440,7 @@ class documents_commands_cog(commands.Cog):
         description='crée un permis de conduire'
     )
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff',"Moniteur")
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("MONITEUR_ID")))
     @app_commands.choices(type_vehicule=[
         app_commands.Choice(name="Voiture", value="voiture"),
         app_commands.Choice(name="Moto", value="moto"),
@@ -477,7 +477,7 @@ class documents_commands_cog(commands.Cog):
         app_commands.Choice(name="Arme blanche",value="blanche"),
     ])
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD','Armurier')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")),int(os.getenv("ARMURIER_ID")))
     async def permis_de_port_darme_creer(self,interaction:discord.Interaction,joueur:discord.User,type_arme:app_commands.Choice[str]):
         try:
             if(not database.cree_permis_port_arme(str(joueur.id),type_arme.value)):
@@ -504,7 +504,7 @@ class documents_commands_cog(commands.Cog):
         app_commands.Choice(name="Helicoptere", value="helicoptere"),
     ])
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff',"LSPD","Moniteur")
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")),int(os.getenv("MONITEUR_ID")))
     async def permis_de_conduire_retirer(self,interaction:discord.Interaction,joueur:discord.User,type_vehicule:app_commands.Choice[str]):
         try:
             database.retire_permis_conduire(str(joueur.id),type_vehicule.value)
@@ -527,7 +527,7 @@ class documents_commands_cog(commands.Cog):
         app_commands.Choice(name="Arme blanche",value="blanche"),
     ])
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD','Armurier')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")),int(os.getenv("ARMURIER_ID")))
     async def permis_de_port_darme_retirer(self,interaction:discord.Interaction,joueur:discord.User,type_arme:app_commands.Choice[str]):
         try:
             database.retire_permis_port_arme(str(joueur.id),type_arme.value)

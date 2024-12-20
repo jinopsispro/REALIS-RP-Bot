@@ -19,7 +19,7 @@ class bank_commands_cog(commands.Cog):
         description='cree compte bancaire'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role("Staff","Banquier")
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("BANQUIER_ID")))
     async def compte_bancaire_creer(self,interaction:discord.Interaction,joueur:discord.User):
         try:
             if(not database.cree_compte_bancaire(str(joueur.id))):
@@ -180,7 +180,7 @@ class bank_commands_cog(commands.Cog):
         app_commands.Choice(name="Banque",value="banque"),
         app_commands.Choice(name="Cash",value="cash")
     ])
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def argent_ajouter(self,interaction:discord.Interaction,destination:app_commands.Choice[str],montant:float,joueur:discord.User,raison:str="\u200b"):
         if((joueur == None)):
             await interaction.response.send_message("vous devez choisir un joueur")
@@ -210,7 +210,7 @@ class bank_commands_cog(commands.Cog):
         app_commands.Choice(name="Banque",value="banque"),
         app_commands.Choice(name="Cash",value="cash")
     ])
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def argent_ajouter_role(self,interaction:discord.Interaction,destination:app_commands.Choice[str],montant:float,role:discord.Role,raison:str="\u200b"):
         if((role == None)):
             await interaction.response.send_message("vous devez choisir un role")
@@ -243,7 +243,7 @@ class bank_commands_cog(commands.Cog):
         app_commands.Choice(name="Banque",value="banque"),
         app_commands.Choice(name="Cash",value="cash")
     ])
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def argent_retirer(self,interaction:discord.Interaction,destination:app_commands.Choice[str],montant:float,joueur:discord.User=None,role:discord.Role=None):
         if((joueur != None and role != None)or(joueur==None and role == None)):
             await interaction.response.send_message("vous devez choisir un rôle ou joueur, un seul parmi les deux")

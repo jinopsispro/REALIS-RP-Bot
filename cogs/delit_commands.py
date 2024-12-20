@@ -100,7 +100,7 @@ class delit_commands_cog(commands.Cog):
         description="cree une drogue"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def drogue_creer(self,interaction:discord.Interaction,nom:str,quantité:int,temps_recolte:float,temps_traitement:float,image:str=None):
         try:
             inp=database.cree_drog(nom=nom,quantite=quantité,tps_recolte=temps_recolte,tps_traitement=temps_traitement,image=image)
@@ -115,7 +115,7 @@ class delit_commands_cog(commands.Cog):
         description="modifie une drogue"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def drogue_modifier(self,interaction:discord.Interaction,nom:str,quantité:int=None,temps_recolte:float=None,temps_traitement:float=None,image:str=None):
         try:
             result=database.modifier_drog(nom=nom,quantite=quantité,tps_recolte=temps_recolte,tps_traitement=temps_traitement,image=image)
@@ -176,7 +176,7 @@ class delit_commands_cog(commands.Cog):
         description="supprime une drogue"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def drogue_supprimer(self,interaction:discord.Interaction,nom:str):
         try:
             database.supprimer_drog(nom=nom)
@@ -190,7 +190,7 @@ class delit_commands_cog(commands.Cog):
         description="configure la vente de drogue"
     )
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def drogue_vente_config(self,interaction:discord.Interaction,type_de_drogue:str,temps_en_minutes:float,prix_qualite_aleatoire_1:float,prix_qualite_aleatoire_2:float,prix_qualite_aleatoire_3:float,prix_qualite_aleatoire_4:float):
         try:
             result=database.modifier_drog_vente(type_de_drogue,temps_vente=temps_en_minutes,prix_q1=prix_qualite_aleatoire_1,prix_q2=prix_qualite_aleatoire_2,prix_q3=prix_qualite_aleatoire_3,prix_q4=prix_qualite_aleatoire_4)
@@ -270,7 +270,7 @@ class delit_commands_cog(commands.Cog):
         description="Permet de configurer un braquage."
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def braquage_config(self,interaction:discord.Interaction,type_braquage:str,montant_minimum:float=None,montant_maximum:float=None,temps_braquage:float=None):
         try:
             result=database.get_braq(type=type_braquage)

@@ -21,7 +21,7 @@ class police_commands_cog(commands.Cog):
         description='recherche une personne'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def recherche_persone(self,interaction:discord.Interaction,nom:str,prenom:str):
         ids=database.find_identite(nom,prenom)
         liste_ids=list(ids)
@@ -64,7 +64,7 @@ class police_commands_cog(commands.Cog):
         description='recherche la plaque'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def recherche_plaque(self,interaction:discord.Interaction,immatriculation:str):
         plaque=database.get_carte_grise_immat(str(immatriculation))
         id=database.get_identite_from_id(plaque["id_identite"])
@@ -85,7 +85,7 @@ class police_commands_cog(commands.Cog):
         description='prise de service LSPD'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def service_prendre_lspd(self,interaction:discord.Interaction):
         embed=discord.Embed(title="RealisRP",color=0x00ff00)
         embed.add_field(name="Entreprise/Département",value="LSPD",inline=False)
@@ -102,7 +102,7 @@ class police_commands_cog(commands.Cog):
         description='fin de service LSPD'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def service_finir_lspd(self,interaction:discord.Interaction):
         embed=discord.Embed(title="RealisRP",color=0xff0000)
         embed.add_field(name="Entreprise/Département",value="LSPD",inline=False)
@@ -119,7 +119,7 @@ class police_commands_cog(commands.Cog):
         description='prise de service EMS'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','EMS')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("EMS_ID")))
     async def service_prendre_ems(self,interaction:discord.Interaction):
         embed=discord.Embed(title="RealisRP",color=0x00ff00)
         embed.add_field(name="Entreprise/Département",value="EMS",inline=False)
@@ -135,7 +135,7 @@ class police_commands_cog(commands.Cog):
         description='fin de service EMS'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','EMS')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("EMS_ID")))
     async def service_finir_ems(self,interaction:discord.Interaction):
         embed=discord.Embed(title="RealisRP",color=0xff0000)
         embed.add_field(name="Entreprise/Département",value="EMS",inline=False)
@@ -163,7 +163,7 @@ class police_commands_cog(commands.Cog):
         description="confisque des items ou de l'argent à quelqu'un"
     )
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','LSPD')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("lSPD_ID")))
     async def confisquer(self,interaction:discord.Interaction,cible:discord.User):
         inv=database.get_inventaire(str(interaction.user.id))
         if(inv==None):

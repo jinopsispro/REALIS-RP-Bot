@@ -209,7 +209,7 @@ class boutique_commands_cog(commands.Cog):
         description="fouiller un joueur l'inventaire"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_any_role('Staff','lspd')
+    @app_commands.checks.has_any_role(int(os.getenv("STAFF_ID")),int(os.getenv("LSPD_ID")))
     async def fouiller(self,interaction:discord.Interaction,cible:discord.User):
         try:
             if(cible==None): cible=interaction.user
@@ -275,7 +275,7 @@ class boutique_commands_cog(commands.Cog):
         description="ajoute un objet dans la boutique"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def boutique_ajout(self,interaction:discord.Interaction,nom_item:str,prix:float):
         try:
             database.ajouter_objet_boutique(nom_item,prix)
@@ -289,7 +289,7 @@ class boutique_commands_cog(commands.Cog):
         description="modifie un objet dans la boutique"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def boutique_modifier(self,interaction:discord.Interaction,nom_item:str,prix:float):
         try:
             database.modifier_objet_boutique(nom_item,prix)
@@ -304,7 +304,7 @@ class boutique_commands_cog(commands.Cog):
         description="modifie le nom d'un objet dans la boutique"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def boutique_modifie_nom(self,interaction:discord.Interaction,nom_item:str,nouveau_nom:str):
         try:
             database.modifier_nom_objet_boutique(nom_item,nouveau_nom)
@@ -318,7 +318,7 @@ class boutique_commands_cog(commands.Cog):
         description="retire un objet dans la boutique"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def boutique_retirer(self,interaction:discord.Interaction,nom_item:str,nouveau_nom:str):
         try:
             database.retirer_objet_boutique(nom_item)

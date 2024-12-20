@@ -15,7 +15,7 @@ class session_commands_cog(commands.Cog):
         description='annoncer une session'
     )
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def session_annoncer(self,interaction:discord.Interaction,heure:str,lanceur:discord.User=None):
         embed=discord.Embed(
             title="✈️  -  **Nouvelle session** ",
@@ -40,7 +40,7 @@ class session_commands_cog(commands.Cog):
         description="début d'une session RP"
     )
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def session_debut(self,interaction:discord.Interaction,lanceur:discord.User=None):
         embed=discord.Embed(
             title="✈️  Début de la session ! ",
@@ -73,7 +73,7 @@ class session_commands_cog(commands.Cog):
         description='fin de la session'
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def session_fin(self,interaction:discord.Interaction):
         embed=discord.Embed(
             title="🛬  Fin de la session ! ",
@@ -91,7 +91,7 @@ class session_commands_cog(commands.Cog):
         description="mort-rp d'un joueur"
     )    
     @app_commands.guild_only()
-    @app_commands.checks.has_role('Staff')
+    @app_commands.checks.has_role(int(os.getenv("STAFF_ID")))
     async def mort_rp(self,interaction:discord.Interaction,joueur:discord.User):
         try:
             database.mort_rp(str(joueur.id))
