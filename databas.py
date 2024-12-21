@@ -12,7 +12,7 @@ try:
 except Exception as e:
     print(e)
 
-db = client.tests
+db = client['REALIS_RP']
 
 def get_id(discord_id:str):
     '''
